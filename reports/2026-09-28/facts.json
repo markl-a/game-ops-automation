@@ -1,0 +1,43 @@
+{
+ "day": "2026-09-28",
+ "log_incidents": [
+  {
+   "kind": "new",
+   "level": "ERROR",
+   "service": "pay-svc",
+   "template": "provider=apple order=<order> signature verify failed: x5c chain expired",
+   "count": 75,
+   "peak_hour": 22,
+   "peak_count": 21,
+   "baseline_same_hour": 0
+  },
+  {
+   "kind": "spike",
+   "level": "WARN",
+   "service": "room-svc",
+   "template": "table=<table> player=<user> reconnect attempt=<*>",
+   "count": 1681,
+   "peak_hour": 21,
+   "peak_count": 1135,
+   "baseline_same_hour": 29
+  }
+ ],
+ "payments": {
+  "missing_grant": 40,
+  "duplicate_grant": 2,
+  "points_mismatch": 1,
+  "granted_but_refunded": 5,
+  "orphan_grant": 1,
+  "missing_grant_twd": 12860,
+  "in_flight_within_sla": 12
+ },
+ "linked": [
+  {
+   "incident": "provider=apple order=<order> signature verify failed: x5c chain expired",
+   "provider": "apple",
+   "since": "2026-09-28T20:01",
+   "orders": 40,
+   "twd": 12860
+  }
+ ]
+}

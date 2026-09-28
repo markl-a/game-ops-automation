@@ -1,0 +1,19 @@
+# Example scheduler: in production this runs against last night's logs and the payments replica.
+# Here it runs on the committed sample data so the workflow itself is exercised.
+name: daily-report
+on:
+  schedule: [{ cron: "30 0 * * *" }]     # 08:30 Asia/Taipei
+  workflow_dispatch:
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+      - run: pip install httpx
+      - run: python -m opsauto.report --day 2026-09-28 --baseline 2026-09-27 --post
+        env:
+          OPS_WEBHOOK_URL: ${{ secrets.OPS_WEBHOOK_URL }}      # unset -> report only, no post
+      - uses: actions/upload-artifact@v4
+        with: { name: daily-report, path: reports/ }
